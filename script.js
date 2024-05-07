@@ -9,23 +9,31 @@ let value = "";
 let result = 0;
 
 function calculator(button) {
-  if (value === "" && /[+\-*/]/.test(button.value)) {
-    return;
-  }
+const lastCharIsOperator = /[+\-*/.]/.test(value[value.length - 1]);
 
-  value = value.trim() + button.value;
-  input_box.value = value;
-
-  if (
-    !value.endsWith("+") &&
-    !value.endsWith("-") &&
-    !value.endsWith("/") &&
-    !value.endsWith("*") &&
-    value !== ""
-  ) {
-    result = eval(value);
-  }
+if (lastCharIsOperator && /[+\-*/.]/.test(button.value)) {
+  return;
 }
+
+value = value.trim() + button.value;
+input_box.value = value;
+
+if (
+  !value.endsWith("+") &&
+  !value.endsWith("-") &&
+  !value.endsWith("/") &&
+  !value.endsWith("*") &&
+  
+  !value.startsWith("+") &&
+  !value.startsWith("-") &&
+  !value.startsWith("/") &&
+  !value.startsWith("*") &&
+  value !== ""
+) {
+  result = eval(value);
+}
+}
+
 
 function showResult() {
   input_box.value = result;
